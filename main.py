@@ -10,26 +10,23 @@ from ansi import cursor
 def menu(choices):
   global pos
   pointer = fg.boldblue('>')
-  for choice in enumerate(choices):
-    text = f'  {choice[0]+1}. {choice[1]}'
-    if choice[0] == 0:
-      text = fg.bold(text)
-    print(text)
-  print(cursor.hide()+cursor.up()*(len(choices))+pointer, end=" ")
+  for choice in choices:
+    print(choice)
+  print(cursor.hide()+cursor.up()*(len(choices))+pointer, end='                                               ')
   stdout.flush()
 
   pos = 1
   while 1:
     key = getkey()
-    text = f'  {pos}. {choices[pos-1]}'
+    text = f'{""} {choices[pos-1]}'
     if (key == '\x1b[A' or key == 'w') and pos > 1:
       pos -= 1
       print(f'\r{text}\r' + cursor.up() + pointer + \
-            fg.bold(f' {pos}. {choices[pos-1]}'), end = " ")
+            fg.bold(f'{""} {choices[pos-1]}'), end = '                                                        ')
     elif (key == '\x1b[B' or key == 's') and pos < len(choices):
       pos += 1
       print(f'\r{text}\r' + cursor.down() + pointer + \
-            fg.bold(f' {pos}. {choices[pos-1]}'),end = " ")
+            fg.bold(f'{""} {choices[pos-1]}'), end = '                                                         ')
     elif key == '\n':
       print(cursor.down()*(len(choices)-pos)+cursor.show())
       return pos
@@ -49,7 +46,7 @@ spaces = '  ' * 50
 name = input("Enter a First Name ")
 name_last = input("Enter a Last Name ")
 
-print("Controls: Up and down / W and S, Enter(for continuing Dialouge)")
+print("Controls: Up and down / W and S, Press Enter to continue")
 pause = input("")
 print('"Warning this "Game" may cause addiction, the funnies, mild humor and reading (The Scariest)"')
 pause = input("")
